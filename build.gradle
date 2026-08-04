@@ -1,0 +1,150 @@
+buildscript {
+    ext.kotlin_version = "1.9.25"
+    ext.jacocoVersion = "0.8.7"
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+        }
+    }
+    dependencies {
+        if (System.getenv("SHOULD_PUBLISH") == "true") {
+            classpath("io.github.gradle-nexus:publish-plugin:1.1.0")
+        }
+        classpath 'com.android.tools.build:gradle:8.7.3'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jacoco:org.jacoco.core:$jacocoVersion"
+    }
+}
+
+if (System.getenv("SHOULD_PUBLISH") == "true") {
+    apply plugin: "io.github.gradle-nexus.publish-plugin"
+    apply from: file("./scripts/publish-root.gradle")
+}
+
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+apply plugin: "jacoco"
+
+android {
+    namespace 'io.ionic.libs.ionhealthfitnesslib'
+    compileSdk 35
+
+    defaultConfig {
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+
+        consumerProguardFiles "consumer-rules.pro"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.15'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
+
+    task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+
+        reports {
+            xml.getRequired().set(true)
+            html.getRequired().set(true)
+        }
+
+        def fileFilter = ['**/BuildConfig.*', '**/Manifest*.*']
+        def debugTree = fileTree(dir: "${buildDir}/tmp/kotlin-classes/debug", excludes: fileFilter)
+        def mainSrc = "${project.projectDir}/src/main/kotlin"
+
+        sourceDirectories.setFrom(files([mainSrc]))
+        classDirectories.setFrom(files([debugTree]))
+        executionData.setFrom(fileTree(dir: "$buildDir", includes: [
+                "jacoco/testDebugUnitTest.exec",
+                "outputs/code-coverage/connected/*coverage.ec"
+        ]))
+
+    }
+}
+
+repositories {
+    google()
+    mavenCentral()
+}
+
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    implementation("androidx.core:core-ktx:1.8.0")
+    implementation("com.google.android.gms:play-services-location:19.0.1")
+    implementation("com.google.code.gson:gson:2.8.9")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2")
+
+
+    implementation "androidx.activity:activity-ktx:1.8.2"
+
+    //appcompact
+    implementation "androidx.appcompat:appcompat:1.6.1"
+
+    //health connect sdk
+    implementation "androidx.health.connect:connect-client:1.1.0-beta01"
+
+    // work manager
+    implementation "androidx.work:work-runtime-ktx:2.9.0"
+
+    implementation 'androidx.activity:activity-compose:1.8.2'
+    implementation 'androidx.compose.material3:material3:1.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0'
+
+    def roomVersion = "2.5.1"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.2'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2'
+
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    // mockito
+    testImplementation "org.mockito:mockito-core:4.3.0"
+    testImplementation 'org.mockito:mockito-inline:4.3.0'
+    testImplementation 'org.mockito.kotlin:mockito-kotlin:4.0.0'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
+
+}
+
+if (System.getenv("SHOULD_PUBLISH") == "true") {
+    apply from: file("./scripts/publish-module.gradle")
+}

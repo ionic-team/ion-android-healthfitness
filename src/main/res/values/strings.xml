@@ -1,0 +1,4 @@
+<resources>
+    <string name="default_privacy_policy_content">Please set the url of the Privacy Policy</string>
+    <string name="no_valid_privacy_policy_url">The URL is not valid</string>
+</resources>

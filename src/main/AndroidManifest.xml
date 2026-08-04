@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="io.ionic.libs.ionhealthfitnesslib">
+
+    <queries>
+        <package android:name="com.google.android.apps.healthdata" />
+    </queries>
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+
+    <application>
+
+        <activity
+            android:name=".HealthConnectPermissionActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/TransparentTheme" />
+        <activity
+            android:name=".PermissionsRationaleActivity"
+            android:theme="@style/Theme.AppCompat"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
+            </intent-filter>
+        </activity>
+
+        <activity-alias
+            android:name=".ViewPermissionUsageActivity"
+            android:exported="true"
+            android:permission="android.permission.START_VIEW_PERMISSION_USAGE"
+            android:targetActivity=".PermissionsRationaleActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW_PERMISSION_USAGE" />
+
+                <category android:name="android.intent.category.HEALTH_PERMISSIONS" />
+            </intent-filter>
+        </activity-alias>
+
+        <receiver android:name=".background.alarms.AlarmReceiver"
+            android:exported="false"/>
+
+        <receiver
+            android:name=".background.transition.ActivityTransitionReceiver"
+            android:exported="false" />
+
+        <service
+            android:name=".background.services.BackgroundListenerService"
+            android:foregroundServiceType="health"
+            android:exported="false">
+        </service>
+
+        <service
+            android:name=".background.services.HealthRecordService"
+            android:foregroundServiceType="health"
+            android:exported="false">
+        </service>
+
+        <activity
+            android:name=".background.ClickActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoDisplay" />
+    </application>
+
+</manifest>
