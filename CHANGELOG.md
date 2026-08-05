@@ -5,3 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 The changes documented here do not include those from the original repository.
+
+## [1.0.0]
+
+- Initial release of IONHealthFitnessLib for Android under ionic-team, ported from the OutSystems Health & Fitness plugin's native Android library.
