@@ -28,7 +28,7 @@ apply plugin: "kotlin-android"
 apply plugin: "jacoco"
 
 android {
-    namespace 'io.ionic.libs.ionhealthfitnesslib'
+    namespace 'com.outsystems.plugins.healthfitness'
     compileSdk 35
 
     defaultConfig {
