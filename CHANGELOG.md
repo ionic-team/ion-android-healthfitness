@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 The changes documented here do not include those from the original repository.
 
+## [1.0.1]
+
+- Revert the Kotlin package/namespace from `io.ionic.libs.ionhealthfitnesslib` back to `com.outsystems.plugins.healthfitness` to preserve delivery of background jobs/alarms already scheduled by an app before it updates. `AlarmManagerHelper`/`ActivityTransitionReceiver` build explicit `Intent`/`PendingIntent` references that bake in the fully-qualified class name at schedule time, so a package rename would break redelivery for anything scheduled under the old package.
+
 ## [1.0.0]
 
 - Initial release of IONHealthFitnessLib for Android under ionic-team, ported from the OutSystems Health & Fitness plugin's native Android library.
