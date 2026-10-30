@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 The changes documented here do not include those from the original repository.
 
+## [Unreleased]
+
+- Chore: Update dependencies and build tooling (Gradle 8.14.3, AGP 8.13.0, Kotlin 1.9.25, compileSdk/targetSdk 36, androidx libraries, Health Connect 1.1.0, Room 2.6.1, play-services-location 21.3.0, gson, coroutines 1.9.0).
+
 ## [1.0.1]
 
 - Revert the Kotlin package/namespace from `io.ionic.libs.ionhealthfitnesslib` back to `com.outsystems.plugins.healthfitness` to preserve delivery of background jobs/alarms already scheduled by an app before it updates. `AlarmManagerHelper`/`ActivityTransitionReceiver` build explicit `Intent`/`PendingIntent` references that bake in the fully-qualified class name at schedule time, so a package rename would break redelivery for anything scheduled under the old package.
