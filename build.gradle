@@ -103,25 +103,25 @@ repositories {
 apply plugin: 'kotlin-kapt'
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.17.0")
+    implementation("androidx.core:core-ktx:1.16.0")
     implementation("com.google.android.gms:play-services-location:21.3.0")
     implementation("com.google.code.gson:gson:2.13.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
 
-    implementation "androidx.activity:activity-ktx:1.11.0"
+    implementation "androidx.activity:activity-ktx:1.10.1"
 
     //appcompact
     implementation "androidx.appcompat:appcompat:1.7.1"
 
     //health connect sdk
-    implementation "androidx.health.connect:connect-client:1.1.0"
+    implementation "androidx.health.connect:connect-client:1.1.0-beta01"
 
     // work manager
     implementation "androidx.work:work-runtime-ktx:2.10.5"
 
-    implementation 'androidx.activity:activity-compose:1.11.0'
+    implementation 'androidx.activity:activity-compose:1.10.1'
     implementation 'androidx.compose.material3:material3:1.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4'
 
