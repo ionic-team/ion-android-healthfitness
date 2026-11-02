@@ -8,7 +8,7 @@ The changes documented here do not include those from the original repository.
 
 ## [Unreleased]
 
-- Chore: Update dependencies and build tooling (Gradle 8.14.3, AGP 8.13.0, Kotlin 1.9.25, compileSdk/targetSdk 36, androidx libraries, Health Connect 1.1.0, Room 2.6.1, play-services-location 21.3.0, gson, coroutines 1.9.0).
+- Chore: Update dependencies and build tooling (Gradle 8.14.3, AGP 8.13.0, Kotlin 1.9.25, compileSdk/targetSdk 36, androidx libraries, Room 2.6.1, WorkManager 2.10.5, play-services-location 21.3.0, gson, coroutines 1.9.0; versions capped to stay compatible with compileSdk 35 / AGP 8.7 consumers, Health Connect stays on 1.1.0-beta01).
 
 ## [1.0.1]
 
