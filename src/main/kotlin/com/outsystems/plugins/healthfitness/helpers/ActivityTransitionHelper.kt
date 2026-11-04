@@ -1,5 +1,6 @@
 package com.outsystems.plugins.healthfitness.helpers
 
+import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -21,7 +22,9 @@ class ActivityTransitionHelper : ActivityTransitionHelperInterface {
     /**
      * Responsible for requesting activity transition updates, using the jobId as the action
      * of the intent, using the Activity Recognition Transition API.
+     * The ACTIVITY_RECOGNITION permission is requested by the caller before this is invoked.
      */
+    @SuppressLint("MissingPermission")
     override fun requestTransitionUpdates(
         jobId: String,
         extras: Bundle,
@@ -53,7 +56,9 @@ class ActivityTransitionHelper : ActivityTransitionHelperInterface {
     /**
      * Responsible for removing activity transition updates, using the jobId as the action
      * of the intent, using the Activity Recognition Transition API.
+     * The ACTIVITY_RECOGNITION permission was requested by the caller when the updates were set up.
      */
+    @SuppressLint("MissingPermission")
     override fun removeTransitionUpdates(
         jobId: String,
         context: Context,
